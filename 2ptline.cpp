@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -8,18 +7,22 @@ struct point {
 
 	point(int argX = 0, int argY = 0);
 
-	double slope(point line2);
+	double slope(point other);
+	void printLine(point other);
 };
 
 int main(void) {
-	point p1(1, 3);
-	point p2(2, 4);
+	point p1(2, 3);
+	point p2(4, 9);
 
 	vector<point> points = {
 	p1, p2
 	};
 
-	p1.slope(p2);
+	double slope = points[0].slope(points[1]);
+	cout << "Slope: " << slope << endl;
+
+	points.printLine();
 }
 
 
@@ -29,6 +32,11 @@ point::point(int argX, int argY) {
 	y = argY;
 }
 
-double slope(point line2) {
-	return (double)
+double point::slope(point other) {
+	return (double)(other.y - y) / (other.x - x);
+}
+void point::printLine(point other) {
+	double m = slope(other);
+	double b = y - m * x;
+	cout << "Line 1: " << y << "= " << m << "(" << x << ") +" << b << endl;
 }
