@@ -1,52 +1,67 @@
-#include<iostream>
-#include<vector>
+#include <iostream>
 using namespace std;
 
-struct point {
-	int x, y;
-
-	point(int argX = 0, int argY = 0);
-
-	double slope(point other);
-	void printLine(point other);
-	int findX(point xValue);
+struct Point {
+    int x, y;
+    Point(int argX = 0, int argY = 0);
 };
 
-int main(void) {
-	point p1(2, 3);
-	point p2(3, 10);
+struct Line {
+    Point p1, p2;
+    Line();
+    Line(Point a, Point b);
+    double slope();
+    void printLine();
+    double evaluate(double xValue);
+};
 
-	vector<point> points = {
-	p1, p2
-	};
+int main() {
+    Point p1(2, 3);
+    Point p2(3, 10);
 
-	double slope = points[0].slope(points[1]);
-	cout << "Slope: " << slope << endl;
+    Line myLine(p1, p2);
 
-	points[0].printLine(points[1]);
+    cout << "Slope: " << myLine.slope() << endl;
+
+    myLine.printLine();
+
+    double x;
+    cout << "Enter an x value to evaluate: ";
+    cin >> x;
+
+    double y = myLine.evaluate(x);
+    cout << "At x = " << x << ", y = " << y << endl;
+
+    return 0;
 }
 
-
-
-point::point(int argX, int argY) {
-	x = argX;
-	y = argY;
+Point::Point(int argX, int argY) {
+    x = argX;
+    y = argY;
 }
 
-double point::slope(point other) {
-	return (double)(other.y - y) / (other.x - x);
-}
-void point::printLine(point other) {
-	double m = slope(other);
-	double b = y - m * x;
-	double b2 = other.y - m * other.x;
-	cout << "Line 1: " << y << " = " << m << "(" << x << ") + " << b << endl;
-	cout << "Line 2: " << other.y << " = " << m << "(" << other.x << ") + " << b << endl;
-}
-int findX(point xValue) {
-	int x;
-	cout << "Type an x value to evaluate";
-	cin >> x;
-	return m * x + b
+Line::Line() {
+    p1 = Point(0, 0);
+    p2 = Point(1, 1);
 }
 
+Line::Line(Point a, Point b) {
+    p1 = a;
+    p2 = b;
+}
+
+double Line::slope() {
+    return double(p2.y - p1.y) / double(p2.x - p1.x);
+}
+
+void Line::printLine() {
+    double m = slope();
+    double b = p1.y - m * p1.x;
+    cout << "y = " << m << "x + " << b << endl;
+}
+
+double Line::evaluate(double xValue) {
+    double m = slope();
+    double b = p1.y - m * p1.x;
+    return m * xValue + b;
+}
