@@ -9,11 +9,12 @@ struct point {
 
 	double slope(point other);
 	void printLine(point other);
+	int findX(point xValue);
 };
 
 int main(void) {
 	point p1(2, 3);
-	point p2(4, 9);
+	point p2(3, 10);
 
 	vector<point> points = {
 	p1, p2
@@ -22,7 +23,7 @@ int main(void) {
 	double slope = points[0].slope(points[1]);
 	cout << "Slope: " << slope << endl;
 
-	points.printLine();
+	points[0].printLine(points[1]);
 }
 
 
@@ -38,5 +39,14 @@ double point::slope(point other) {
 void point::printLine(point other) {
 	double m = slope(other);
 	double b = y - m * x;
-	cout << "Line 1: " << y << "= " << m << "(" << x << ") +" << b << endl;
+	double b2 = other.y - m * other.x;
+	cout << "Line 1: " << y << " = " << m << "(" << x << ") + " << b << endl;
+	cout << "Line 2: " << other.y << " = " << m << "(" << other.x << ") + " << b << endl;
 }
+int findX(point xValue) {
+	int x;
+	cout << "Type an x value to evaluate";
+	cin >> x;
+	return m * x + b
+}
+
